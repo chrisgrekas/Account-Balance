@@ -30,10 +30,15 @@ def get_int_input(message):
 userName=input("Please give as your name: ")
 account_deposit = get_float_input("Please give as your money Account")
 user=User(userName,account_deposit)
-energy=get_int_input("Please Select Energy : Press 1 for Transaction. 2 For showing balance!")
-while energy in [1,2] :
+
+energy=get_int_input("Please Select Energy : Press 1 for Transaction. 2 For showing balance!,,3 To import incomes,4 to import expenses")
+while energy in [1,2,3,4] :
     if energy ==2:
         print(user.get_balance())
+    elif energy==3:
+        print(user.import_incomes_from_json())
+    elif energy==4:
+        print(user.import_expenses_from_json())
     elif energy ==1:
         payment=create_transaction()
         transaction_mode=get_int_input("Please select: Press 1 to add money to your account . 2 To define an expense")
@@ -60,6 +65,8 @@ elif history_transactions==3:
 else:
     print("Invalid")
 exports=get_int_input("Would you like to have something as an export?")
+print("Press 1 for expenses")
+print("Press 2 for incomes")
 if exports==1 :
     user.export_expenses_as_json()
 elif exports== 2:

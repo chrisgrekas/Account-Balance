@@ -15,10 +15,13 @@ class User:
         self.income.append(transaction)
         return f'{transaction.amount} of money has been added to your account.The reason is {transaction.category} and the date is {transaction.date}. You now have {self.account_deposit} into your account'
     def spend_money(self,transaction):
-        self.account_deposit-=transaction.amount
-        self.transactions.append(transaction)
-        self.expenses.append(transaction)
-        return f'{transaction.amount} of money has been withdraw to your account.The reason is {transaction.category} and the date is {transaction.date}. You now have {self.account_deposit} into your account'
+        if transaction.amount> self.account_deposit:
+            return f"Your account does not have so much money!"
+        else:
+            self.account_deposit-=transaction.amount
+            self.transactions.append(transaction)
+            self.expenses.append(transaction)
+            return f'{transaction.amount} of money has been withdraw to your account.The reason is {transaction.category} and the date is {transaction.date}. You now have {self.account_deposit} into your account'
     def get_balance(self):
         return f"Hello {self.name} you now have {self.account_deposit}"
     def get_transactions(self):
@@ -44,6 +47,25 @@ class User:
             json.dump(data, f, ensure_ascii=False, indent=4)
 
         print("Έτοιμο! Το αρχείο incomes.json δημιουργήθηκε.")
+
+    def import_incomes_from_json(self):
+        with open("incomes.json","r") as file:
+            data=json.load(file)
+        for item in data:
+            t = Transaction(item["amount"], item["category"], item["date"])
+            self.income.append(t)
+            self.account_deposit += t.amount
+        return(f"Your new account deposit are : {self.account_deposit}")
+
+    def import_expenses_from_json(self):
+        with open("expenses.json","r") as file:
+            data=json.load(file)
+        for item in data:
+            t=Transaction(item["amount"],item["category"],item["date"])
+            self.expenses.append(t)
+            self.account_deposit-=t.amount
+        return(f"Your new account deposit are : {self.account_deposit}")
+
     
         
 
