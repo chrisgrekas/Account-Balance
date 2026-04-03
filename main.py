@@ -13,33 +13,30 @@ def create_transaction():
     category = input("Please specify the category:")
     return Transaction(amount, category, now)
 
-userName=input("Please give as your name: ")
-while True:
-    try:
-        account_deposit = float(input("Account Deposit: "))
-        break
-    except ValueError:
-        print('You must enter a number')
+def get_float_input(message):
+    while True:
+        try:
+            return float(input(message))
+        except ValueError:
+            print("You must enter a number!")
 
+def get_int_input(message):
+    while True:
+        try:
+            return int(input(message))
+        except ValueError:
+            print("You must enter a number!")
+
+userName=input("Please give as your name: ")
+account_deposit = get_float_input("Please give as your money Account")
 user=User(userName,account_deposit)
-while True:
-    try:
-        energy = int(input("Please Select Energy : Press 1 for Transaction. 2 For showing balance!"))
-        break
-    except ValueError:
-        print("You must choose a number.Press 1 for Transaction. 2 For showing balance!")
+energy=get_int_input("Please Select Energy : Press 1 for Transaction. 2 For showing balance!")
 while energy in [1,2] :
     if energy ==2:
         print(user.get_balance())
     elif energy ==1:
         payment=create_transaction()
-        while True:
-            try:
-                transaction_mode=int(input("Please select: Press 1 to add money to your account . 2 To define an expense"))
-                break
-            except ValueError:
-                print("You must pick a number")
-
+        transaction_mode=get_int_input("Please select: Press 1 to add money to your account . 2 To define an expense")
         if transaction_mode==1:
             print(user.add_money(payment))
         elif transaction_mode==2:
@@ -48,28 +45,25 @@ while energy in [1,2] :
             print("Invalid Transaction")
     else:
         print("Invalid")
-    while True:
-        try:
-            energy = int(input("Please Select Energy : Press 1 for Transaction. 2 For showing balance!"))
-            break
-        except ValueError:
-            print("You must choose a number.Press 1 for Transaction. 2 For showing balance!")
+    energy=get_int_input("Please Select Energy : Press 1 for Transaction. 2 For showing balance!")
 print("If you want to see the history:")
 print("1. History of Incomes")
 print("2. History of Expenses")
 print("3. History of All transactions")
-while True:
-    try:
-        history_transactions = int(input("Select: "))
-        break
-    except ValueError:
-        print("Please choose a number")
+history_transactions=get_int_input("Select: ")
 if history_transactions==1:
     print(user.get_income())
 elif history_transactions==2:
     print(user.get_expenses())
 elif history_transactions==3:
     print(user.get_transactions())
+else:
+    print("Invalid")
+exports=get_int_input("Would you like to have something as an export?")
+if exports==1 :
+    user.export_expenses_as_json()
+elif exports== 2:
+    user.export_incomes_as_json()
 else:
     print("Invalid")
 

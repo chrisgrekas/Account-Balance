@@ -1,3 +1,4 @@
+import json
 class User:
     def __init__(self,name,account_deposit):
         self.name=name
@@ -26,7 +27,23 @@ class User:
         return self.income
     def get_expenses(self):
         return self.expenses
-    
+    def export_expenses_as_json(self):
+        data=[]
+        for t in self.expenses:
+            data.append({"amount": t.amount, "category": t.category, "date": t.date})
+        with open("expenses.json", "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
+
+        print("Έτοιμο! Το αρχείο expenses.json δημιουργήθηκε.")
+
+    def export_incomes_as_json(self):
+        data=[]
+        for t in self.income:
+            data.append({"amount": t.amount, "category": t.category, "date": t.date})
+        with open("incomes.json", "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
+
+        print("Έτοιμο! Το αρχείο incomes.json δημιουργήθηκε.")
     
         
 
