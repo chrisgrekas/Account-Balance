@@ -55,6 +55,7 @@ print("If you want to see the history:")
 print("1. History of Incomes")
 print("2. History of Expenses")
 print("3. History of All transactions")
+print("4.Expenses By Category")
 history_transactions=get_int_input("Select: ")
 if history_transactions==1:
     print(user.get_income())
@@ -62,6 +63,8 @@ elif history_transactions==2:
     print(user.get_expenses())
 elif history_transactions==3:
     print(user.get_transactions())
+elif history_transactions==4:
+    print(user.get_expenses_by_category())
 else:
     print("Invalid")
 exports=get_int_input("Would you like to have something as an export?")

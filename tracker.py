@@ -65,6 +65,20 @@ class User:
             self.expenses.append(t)
             self.account_deposit-=t.amount
         return(f"Your new account deposit are : {self.account_deposit}")
+    
+    def get_expenses_by_category(self):
+        expenses_per_category={}
+        for expense in self.expenses:
+            if expense.category in expenses_per_category:
+                expenses_per_category[expense.category] += expense.amount
+            else:
+                expenses_per_category[expense.category] = expense.amount
+        return expenses_per_category      
+
+
+
+
+
 
     
         
