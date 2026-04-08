@@ -92,7 +92,7 @@ class User:
         y=list(expenses_category.values())
         plt.title("Expenses By Category")
         plt.xlabel("Expenses")
-        plt.ylabel("Ammount")
+        plt.ylabel("Amount")
         plt.bar(x,y)
         plt.show()
 
@@ -102,7 +102,7 @@ class User:
         y=list(incomes_category.values())
         plt.title("Incomes By Category")
         plt.xlabel("Incomes")
-        plt.ylabel("Ammount")
+        plt.ylabel("Amount")
         plt.bar(x,y)
         plt.show()
 
