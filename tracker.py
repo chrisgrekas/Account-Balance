@@ -90,6 +90,9 @@ class User:
         expenses_category=self.get_expenses_by_category()
         x=list(expenses_category.keys())
         y=list(expenses_category.values())
+        plt.title("Expenses By Category")
+        plt.xlabel("Expenses")
+        plt.ylabel("Ammount")
         plt.bar(x,y)
         plt.show()
 
@@ -97,6 +100,9 @@ class User:
         incomes_category=self.get_income_by_category()
         x=list(incomes_category.keys())
         y=list(incomes_category.values())
+        plt.title("Incomes By Category")
+        plt.xlabel("Incomes")
+        plt.ylabel("Ammount")
         plt.bar(x,y)
         plt.show()
 
