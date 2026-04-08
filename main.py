@@ -56,6 +56,7 @@ print("1. History of Incomes")
 print("2. History of Expenses")
 print("3. History of All transactions")
 print("4.Expenses By Category")
+print("5.Incomes by Category")
 history_transactions=get_int_input("Select: ")
 if history_transactions==1:
     print(user.get_income())
@@ -65,15 +66,25 @@ elif history_transactions==3:
     print(user.get_transactions())
 elif history_transactions==4:
     print(user.get_expenses_by_category())
+elif history_transactions==5:
+    print(user.get_income_by_category())
 else:
     print("Invalid")
-exports=get_int_input("Would you like to have something as an export?")
 print("Press 1 for expenses")
 print("Press 2 for incomes")
+print("Press 3 to plot expenses")
+print("Press 4 to plot incomes")
+exports=get_int_input("Would you like to have something as an export?")
 if exports==1 :
     user.export_expenses_as_json()
 elif exports== 2:
     user.export_incomes_as_json()
+elif exports==3:
+    user.get_expenses_as_plot()
+elif exports==4:
+    user.get_incomes_as_plot()
+
+
 else:
     print("Invalid")
 

@@ -1,12 +1,32 @@
 [
     {
-        "amount": 756.0,
-        "category": "saas",
-        "date": "03/04/2026 22:14"
+        "amount": 2500.0,
+        "category": "salary",
+        "date": "04/04/2026 09:00"
     },
     {
-        "amount": 789654.0,
-        "category": "daad",
-        "date": "03/04/2026 22:14"
+        "amount": 500.0,
+        "category": "freelance",
+        "date": "04/04/2026 10:00"
+    },
+    {
+        "amount": 300.0,
+        "category": "freelance",
+        "date": "04/04/2026 11:00"
+    },
+    {
+        "amount": 150.0,
+        "category": "investments",
+        "date": "04/04/2026 12:00"
+    },
+    {
+        "amount": 2500.0,
+        "category": "salary",
+        "date": "05/04/2026 09:00"
+    },
+    {
+        "amount": 200.0,
+        "category": "investments",
+        "date": "05/04/2026 14:00"
     }
 ]

@@ -1,4 +1,6 @@
 import json
+import matplotlib.pyplot as plt
+import numpy as np
 class User:
     def __init__(self,name,account_deposit):
         self.name=name
@@ -73,8 +75,30 @@ class User:
                 expenses_per_category[expense.category] += expense.amount
             else:
                 expenses_per_category[expense.category] = expense.amount
-        return expenses_per_category      
+        return expenses_per_category    
 
+    def get_income_by_category(self):
+        incomes_per_category={}
+        for income in self.income:
+            if income.category in incomes_per_category:
+                incomes_per_category[income.category]+= income.amount
+            else:
+                incomes_per_category[income.category]=income.amount
+        return incomes_per_category
+
+    def get_expenses_as_plot(self):
+        expenses_category=self.get_expenses_by_category()
+        x=list(expenses_category.keys())
+        y=list(expenses_category.values())
+        plt.bar(x,y)
+        plt.show()
+
+    def get_incomes_as_plot(self):
+        incomes_category=self.get_income_by_category()
+        x=list(incomes_category.keys())
+        y=list(incomes_category.values())
+        plt.bar(x,y)
+        plt.show()
 
 
 
