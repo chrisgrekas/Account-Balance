@@ -1,92 +1,86 @@
-from tracker import User
-from tracker import Transaction
+from tracker import User, Transaction, InsufficientFundsError
 from datetime import datetime
 
-def create_transaction():
+
+def create_transaction() -> Transaction:
     now = datetime.now().strftime("%d/%m/%Y %H:%M")
     while True:
         try:
-            amount = float(input("Please give me amount of money:"))
+            amount = float(input("Amount: "))
             break
         except ValueError:
-            print("Please give as a number")
-    category = input("Please specify the category:")
+            print("Enter a number.")
+    category = input("Category: ")
     return Transaction(amount, category, now)
 
-def get_float_input(message):
+
+def get_float(prompt: str) -> float:
     while True:
         try:
-            return float(input(message))
+            return float(input(prompt))
         except ValueError:
-            print("You must enter a number!")
+            print("Enter a number.")
 
-def get_int_input(message):
+
+def get_int(prompt: str) -> int:
     while True:
         try:
-            return int(input(message))
+            return int(input(prompt))
         except ValueError:
-            print("You must enter a number!")
+            print("Enter a number.")
 
-userName=input("Please give as your name: ")
-account_deposit = get_float_input("Please give as your money Account")
-user=User(userName,account_deposit)
 
-energy=get_int_input("Please Select Energy : Press 1 for Transaction. 2 For showing balance!,,3 To import incomes,4 to import expenses")
-while energy in [1,2,3,4] :
-    if energy ==2:
-        print(user.get_balance())
-    elif energy==3:
-        print(user.import_incomes_from_json())
-    elif energy==4:
-        print(user.import_expenses_from_json())
-    elif energy ==1:
-        payment=create_transaction()
-        transaction_mode=get_int_input("Please select: Press 1 to add money to your account . 2 To define an expense")
-        if transaction_mode==1:
-            print(user.add_money(payment))
-        elif transaction_mode==2:
-            print(user.spend_money(payment))
+name = input("Name: ")
+balance = get_float("Starting balance: ")
+user = User(name, balance)
+
+action = get_int("1 Transaction  2 Balance  3 Import income  4 Import expenses\n> ")
+while action in [1, 2, 3, 4]:
+    if action == 1:
+        t = create_transaction()
+        mode = get_int("1 Deposit  2 Withdraw\n> ")
+        if mode == 1:
+            print(user.deposit(t))
+        elif mode == 2:
+            try:
+                print(user.withdraw(t))
+            except InsufficientFundsError as e:
+                print(e)
         else:
-            print("Invalid Transaction")
-    else:
-        print("Invalid")
-    energy=get_int_input("Please Select Energy : Press 1 for Transaction. 2 For showing balance!")
-print("If you want to see the history:")
-print("1. History of Incomes")
-print("2. History of Expenses")
-print("3. History of All transactions")
-print("4.Expenses By Category")
-print("5.Incomes by Category")
-history_transactions=get_int_input("Select: ")
-if history_transactions==1:
+            print("Invalid.")
+    elif action == 2:
+        print(user.get_balance())
+    elif action == 3:
+        print(user.import_income())
+    elif action == 4:
+        print(user.import_expenses())
+    action = get_int("1 Transaction  2 Balance  3 Import income  4 Import expenses  0 Done\n> ")
+
+history = get_int(
+    "1 Income history  2 Expense history  3 All transactions  "
+    "4 Expenses by category  5 Income by category\n> "
+)
+if history == 1:
     print(user.get_income())
-elif history_transactions==2:
+elif history == 2:
     print(user.get_expenses())
-elif history_transactions==3:
+elif history == 3:
     print(user.get_transactions())
-elif history_transactions==4:
+elif history == 4:
     print(user.get_expenses_by_category())
-elif history_transactions==5:
+elif history == 5:
     print(user.get_income_by_category())
 else:
-    print("Invalid")
-print("Press 1 for expenses")
-print("Press 2 for incomes")
-print("Press 3 to plot expenses")
-print("Press 4 to plot incomes")
-exports=get_int_input("Would you like to have something as an export?")
-if exports==1 :
-    user.export_expenses_as_json()
-elif exports== 2:
-    user.export_incomes_as_json()
-elif exports==3:
-    user.get_expenses_as_plot()
-elif exports==4:
-    user.get_incomes_as_plot()
+    print("Invalid.")
 
-
+export = get_int("1 Export expenses  2 Export income  3 Plot expenses  4 Plot income\n> ")
+if export == 1:
+    user.export_expenses()
+elif export == 2:
+    user.export_income()
+elif export == 3:
+    user.plot_expenses()
+elif export == 4:
+    user.plot_income()
 else:
-    print("Invalid")
-
-    
-
+    print("Invalid.")
